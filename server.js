@@ -327,6 +327,35 @@ app.get('/api/public_profile.php', async (req, res) => {
   }
 });
 
+// Админ — получить заявки на модерацию
+app.get('/api/admin_pending.php', async (req, res) => {
+  if (!req.session.user || !['admin','moderator'].includes(req.session.user.role)) {
+    return res.json({ items: [] });
+  }
+  try {
+    const type = req.query.type === 'scammers' ? 'scammers' : 'cheaters';
+    const [items] = await db.execute(`SELECT * FROM ${type} WHERE status='pending' ORDER BY created_at DESC LIMIT 50`);
+    res.json({ items });
+  } catch(e) {
+    res.json({ items: [] });
+  }
+});
+
+// Админ — изменить роль пользователя
+app.post('/api/admin_set_role.php', async (req, res) => {
+  if (!req.session.user || req.session.user.role !== 'admin') {
+    return res.json({ ok: false, error: 'Нет прав' });
+  }
+  try {
+    const { userId, role } = req.body;
+    if (!['user','moderator','vip'].includes(role)) return res.json({ ok: false, error: 'Неверная роль' });
+    await db.execute('UPDATE users SET role = ? WHERE id = ?', [role, userId]);
+    res.json({ ok: true });
+  } catch(e) {
+    res.json({ ok: false, error: e.message });
+  }
+});
+
 // Онлайн счётчик
 app.get('/api/online_count.php', async (req, res) => {
   try {
