@@ -46,6 +46,7 @@
     <nav class="nav" id="nav">
       <button class="nav-btn active" data-page="home">Главная</button>
       <button class="nav-btn" data-page="scammers">Скаммеры</button>
+      <button class="nav-btn admin-only" data-page="admin" id="adminNavBtn" style="display:none;color:var(--accent)">⚙ Админ</button>
             <button class="nav-btn" data-page="servers">Серверы</button>
       <button class="nav-btn" data-page="stats">Статистика</button>
       <button class="nav-btn" data-page="members">Участники</button>
@@ -91,6 +92,7 @@
   <nav class="mobile-nav">
     <button class="mobile-nav-btn active" data-page="home" onclick="mobileNavigate('home')">Главная</button>
     <button class="mobile-nav-btn" data-page="scammers" onclick="mobileNavigate('scammers')">Скаммеры</button>
+    <button class="mobile-nav-btn admin-only" data-page="admin" onclick="mobileNavigate('admin')" id="adminMobileNavBtn" style="display:none;color:var(--accent)">⚙ Админ</button>
         <button class="mobile-nav-btn" data-page="servers" onclick="mobileNavigate('servers')">Серверы</button>
     <button class="mobile-nav-btn" data-page="stats" onclick="mobileNavigate('stats')">Статистика</button>
     <button class="mobile-nav-btn" data-page="members" onclick="mobileNavigate('members')">Участники</button>
@@ -336,7 +338,32 @@
     <div class="card"><div class="faq-q">Как работают просмотры?</div><div class="faq-a">Просмотры уникальные — повторное открытие не увеличивает счётчик.</div></div>
   </div>
 
-  
+
+  <div class="page" id="page-admin">
+    <div class="search-title" style="margin-bottom:6px">Админ панель</div>
+    <div style="color:var(--text-d);font-size:13px;margin-bottom:20px">Управление сайтом ARCHIVEMALRP</div>
+
+    <!-- Stats -->
+    <div id="adminStats" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-bottom:20px"></div>
+
+    <!-- Pending cheaters -->
+    <div class="card" style="margin-bottom:16px">
+      <div class="card-title" style="margin-bottom:14px">⏳ Заявки на читеров (ожидают)</div>
+      <div id="adminPendingCheaters" style="color:var(--text-d);text-align:center;padding:20px">Загрузка...</div>
+    </div>
+
+    <!-- Pending scammers -->
+    <div class="card" style="margin-bottom:16px">
+      <div class="card-title" style="margin-bottom:14px">⏳ Заявки на скаммеров (ожидают)</div>
+      <div id="adminPendingScammers" style="color:var(--text-d);text-align:center;padding:20px">Загрузка...</div>
+    </div>
+
+    <!-- All users -->
+    <div class="card">
+      <div class="card-title" style="margin-bottom:14px">👥 Пользователи</div>
+      <div id="adminUsers" style="color:var(--text-d);text-align:center;padding:20px">Загрузка...</div>
+    </div>
+  </div>
 
 </div>
 
