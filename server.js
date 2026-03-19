@@ -333,8 +333,21 @@ app.get('/api/online_count.php', async (req, res) => {
 // Данные для формы (серверы и читы)
 app.get('/api/form_data.php', async (req, res) => {
   try {
-    const servers = ['Сервер #1', 'Сервер #2', 'Сервер #3', 'Сервер #4'];
-    const cheats = ['SilentAim', 'VectorAim', 'TriggerBot', 'Visuals', 'ESP', 'Aimbot', 'SpeedHack'];
+    const servers = [
+      { id: '1', name: 'Сервер #1' },
+      { id: '2', name: 'Сервер #2' },
+      { id: '3', name: 'Сервер #3' },
+      { id: '4', name: 'Сервер #4' },
+    ];
+    const cheats = [
+      { id: '1', name: 'SilentAim' },
+      { id: '2', name: 'VectorAim' },
+      { id: '3', name: 'TriggerBot' },
+      { id: '4', name: 'Visuals' },
+      { id: '5', name: 'ESP' },
+      { id: '6', name: 'Aimbot' },
+      { id: '7', name: 'SpeedHack' },
+    ];
     res.json({ servers, cheats });
   } catch (e) {
     res.json({ servers: [], cheats: [] });
