@@ -310,12 +310,16 @@ app.get('/api/public_profile.php', async (req, res) => {
       ok: true,
       user: {
         ...user,
-        submitted: submitted[0].c,
+        registered: user.created_at ? new Date(user.created_at).toLocaleDateString('ru') : '—',
+        last_login: user.created_at ? new Date(user.created_at).toLocaleDateString('ru') : '—',
+      },
+      stats: {
+        total_submitted: submitted[0].c,
         confirmed: confirmed[0].c,
         fake: fake[0].c,
-        total_submitted: submitted[0].c,
-        total_confirmed: confirmed[0].c,
-        total_fake: fake[0].c,
+        checking: 0,
+        votes_given: 0,
+        comments_given: 0,
       }
     });
   } catch (e) {
