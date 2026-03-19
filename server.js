@@ -313,6 +313,9 @@ app.get('/api/public_profile.php', async (req, res) => {
         submitted: submitted[0].c,
         confirmed: confirmed[0].c,
         fake: fake[0].c,
+        total_submitted: submitted[0].c,
+        total_confirmed: confirmed[0].c,
+        total_fake: fake[0].c,
       }
     });
   } catch (e) {
