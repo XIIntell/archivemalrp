@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<!-- Mirrored from archivemalrp.ru/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 18 Mar 2026 14:52:28 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARCHIVEMALRP — База читеров MALRP</title>
+  <link rel="icon" type="image/x-icon" href="img/favicon.ico">
+  <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
+
+  <meta name="description" content="ARCHIVEMALRP — публичная база данных читеров MAL RP. Проверь ник, сервер или Discord перед тем как взаимодействовать.">
+  <meta name="keywords" content="MALRP, читеры, blacklist, архив, читы, MAL RP">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="index.html">
+  <meta property="og:title" content="ARCHIVEMALRP — База читеров MALRP">
+  <meta property="og:description" content="Публичная база данных читеров MAL RP. Проверь ник, сервер или Discord перед тем как взаимодействовать.">
+  <meta property="og:image" content="img/og-preview.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:site_name" content="ARCHIVEMALRP">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ARCHIVEMALRP — База читеров MALRP">
+  <meta name="twitter:description" content="Публичная база данных читеров MAL RP. Проверь ник, сервер или Discord перед тем как взаимодействовать.">
+  <meta name="twitter:image" content="img/og-preview.png">
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style86bb.css?v=1773691556">
+<link rel="stylesheet" href="css/cabinetf645.css?v=1773085912">
+<script src="../cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</head>
+<body>
+
+<div id="lightRaysContainer" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:-1;overflow:hidden;"></div>
+
+<header class="header">
+<div class="header-inner">
+  <div class="header-left">
+    <a href="index.html" class="logo" onclick="navigate('home');return false;">
+      <span class="logo-text">ARCHIVE<span class="logo-accent">MALRP</span></span>
+    </a>
+    <nav class="nav" id="nav">
+      <button class="nav-btn active" data-page="home">Главная</button>
+      <button class="nav-btn" data-page="scammers">Скаммеры</button>
+            <button class="nav-btn" data-page="servers">Серверы</button>
+      <button class="nav-btn" data-page="stats">Статистика</button>
+      <button class="nav-btn" data-page="members">Участники</button>
+      <button class="nav-btn" data-page="help">Помощь</button>
+
+    </nav>
+  </div>
+  <div class="header-right">
+    <div class="online-badge">
+      <div class="online-dot"></div>
+      <span id="onlineCountText">20 онлайн</span>
+    </div>
+
+    <!-- Переключатель темы -->
+    <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Сменить тему">
+      <span class="theme-toggle-track">
+        <span class="theme-toggle-thumb"></span>
+        <svg class="theme-icon theme-icon-sun" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        <svg class="theme-icon theme-icon-moon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </span>
+    </button>
+
+        <a href="/auth/discord_login.php" class="discord-btn discord-btn-full">
+      <svg width="18" height="14" viewBox="0 0 71 55" fill="#fff"><path d="M60.1 4.9A58.5 58.5 0 0 0 45.7.5a.22.22 0 0 0-.23.1 40.8 40.8 0 0 0-1.8 3.7 54 54 0 0 0-16.2 0A37.6 37.6 0 0 0 25.6.6a.23.23 0 0 0-.23-.1A58.4 58.4 0 0 0 11 4.9a.2.2 0 0 0-.1.08C1.6 18.7-1 32.2.3 45.5a.24.24 0 0 0 .09.17 58.8 58.8 0 0 0 17.7 8.9.23.23 0 0 0 .25-.08 42 42 0 0 0 3.6-5.9.23.23 0 0 0-.12-.32 38.7 38.7 0 0 1-5.5-2.6.23.23 0 0 1-.02-.38l1.1-.86a.22.22 0 0 1 .23-.03c11.6 5.3 24.1 5.3 35.5 0a.22.22 0 0 1 .23.03l1.1.86a.23.23 0 0 1-.02.38 36.4 36.4 0 0 1-5.5 2.6.23.23 0 0 0-.13.32 47.1 47.1 0 0 0 3.6 5.9.22.22 0 0 0 .25.08A58.6 58.6 0 0 0 70.6 45.7a.23.23 0 0 0 .09-.17C73.2 30.1 69 16.7 60.2 5a.18.18 0 0 0-.1-.08zM23.7 37.3c-3.5 0-6.4-3.2-6.4-7.2s2.8-7.2 6.4-7.2c3.6 0 6.5 3.2 6.4 7.2 0 3.9-2.8 7.2-6.4 7.2zm23.7 0c-3.5 0-6.4-3.2-6.4-7.2s2.8-7.2 6.4-7.2c3.6 0 6.5 3.2 6.4 7.2 0 3.9-2.8 7.2-6.4 7.2z"/></svg>
+      <span class="discord-btn-text">Войти через Discord</span>
+    </a>
+        <button class="burger-btn" id="burgerBtn" onclick="toggleMobileMenu()" aria-label="Меню">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</div>
+</header>
+
+<!-- Mobile menu overlay -->
+<div class="mobile-menu-overlay" id="mobileMenuOverlay" onclick="closeMobileMenu()"></div>
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-header">
+    <span class="logo-text">ARCHIVE<span class="logo-accent">MALRP</span></span>
+    <button class="mobile-menu-close" onclick="closeMobileMenu()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <nav class="mobile-nav">
+    <button class="mobile-nav-btn active" data-page="home" onclick="mobileNavigate('home')">Главная</button>
+    <button class="mobile-nav-btn" data-page="scammers" onclick="mobileNavigate('scammers')">Скаммеры</button>
+        <button class="mobile-nav-btn" data-page="servers" onclick="mobileNavigate('servers')">Серверы</button>
+    <button class="mobile-nav-btn" data-page="stats" onclick="mobileNavigate('stats')">Статистика</button>
+    <button class="mobile-nav-btn" data-page="members" onclick="mobileNavigate('members')">Участники</button>
+    <button class="mobile-nav-btn" data-page="help" onclick="mobileNavigate('help')">Помощь</button>
+
+  </nav>
+    <div class="mobile-menu-footer">
+    <a href="/auth/discord_login.php" class="discord-btn" style="width:100%;justify-content:center">
+      <svg width="16" height="12" viewBox="0 0 71 55" fill="#fff"><path d="M60.1 4.9A58.5 58.5 0 0 0 45.7.5a.22.22 0 0 0-.23.1 40.8 40.8 0 0 0-1.8 3.7 54 54 0 0 0-16.2 0A37.6 37.6 0 0 0 25.6.6a.23.23 0 0 0-.23-.1A58.4 58.4 0 0 0 11 4.9a.2.2 0 0 0-.1.08C1.6 18.7-1 32.2.3 45.5a.24.24 0 0 0 .09.17 58.8 58.8 0 0 0 17.7 8.9.23.23 0 0 0 .25-.08 42 42 0 0 0 3.6-5.9.23.23 0 0 0-.12-.32 38.7 38.7 0 0 1-5.5-2.6.23.23 0 0 1-.02-.38l1.1-.86a.22.22 0 0 1 .23-.03c11.6 5.3 24.1 5.3 35.5 0a.22.22 0 0 1 .23.03l1.1.86a.23.23 0 0 1-.02.38 36.4 36.4 0 0 1-5.5 2.6.23.23 0 0 0-.13.32 47.1 47.1 0 0 0 3.6 5.9.22.22 0 0 0 .25.08A58.6 58.6 0 0 0 70.6 45.7a.23.23 0 0 0 .09-.17C73.2 30.1 69 16.7 60.2 5a.18.18 0 0 0-.1-.08zM23.7 37.3c-3.5 0-6.4-3.2-6.4-7.2s2.8-7.2 6.4-7.2c3.6 0 6.5 3.2 6.4 7.2 0 3.9-2.8 7.2-6.4 7.2zm23.7 0c-3.5 0-6.4-3.2-6.4-7.2s2.8-7.2 6.4-7.2c3.6 0 6.5 3.2 6.4 7.2 0 3.9-2.8 7.2-6.4 7.2z"/></svg>
+      Войти через Discord
+    </a>
+  </div>
+  </div>
+
+<div class="main">
+
+  
+  <div class="page active" id="page-home">
+    <div class="search-block">
+      <div class="search-title">Поиск подозреваемого</div>
+      <div class="search-sub">Найди подозреваемого по нику, серверу или типу чита</div>
+      <div class="radio-row">
+        <label><input type="radio" name="searchType" value="nick" checked> По нику</label>
+        <label><input type="radio" name="searchType" value="server"> По серверу</label>
+        <label><input type="radio" name="searchType" value="cheat"> По читу</label>
+        <label><input type="radio" name="searchType" value="discord"> По Discord</label>
+      </div>
+      <div class="search-row">
+        <input class="search-input" id="searchInput" placeholder="Введите ник...">
+        <button class="search-btn" onclick="doSearch()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          Найти
+        </button>
+      </div>
+      <div class="filter-row" style="flex-wrap:wrap">
+        <div style="display:flex;gap:6px;justify-content:center;flex-wrap:wrap">
+          <div class="custom-select filter-cs" id="csFilterServer" style="flex:1;max-width:220px">
+            <button type="button" class="custom-select-btn filter-cs-btn" onclick="toggleFilterCS('csFilterServer')" id="csFilterServerBtn">
+              <span class="cs-val" id="csFilterServerVal">Все серверы</span>
+              <svg class="cs-arrow" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="custom-select-drop" id="csFilterServerDrop">
+              <div id="csFilterServerOptions"></div>
+            </div>
+          </div>
+          <input type="hidden" id="filterServer">
+
+          <div class="custom-select filter-cs" id="csFilterCheat" style="flex:1;max-width:220px">
+            <button type="button" class="custom-select-btn filter-cs-btn" onclick="toggleFilterCS('csFilterCheat')" id="csFilterCheatBtn">
+              <span class="cs-val" id="csFilterCheatVal">Все читы</span>
+              <svg class="cs-arrow" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="custom-select-drop" id="csFilterCheatDrop">
+              <div id="csFilterCheatOptions"></div>
+            </div>
+          </div>
+          <input type="hidden" id="filterCheat">
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;justify-content:center;flex-wrap:nowrap">
+          <div class="cdp-wrap" id="cdpFrom">
+            <button type="button" class="cdp-btn" onclick="cdpToggle('cdpFrom')">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              <span class="cdp-val" id="cdpFromVal">От</span>
+            </button>
+            <div class="cdp-drop" id="cdpFromDrop"></div>
+            <input type="hidden" id="filterDateFrom">
+          </div>
+          <span style="color:var(--text-d);font-size:11px">—</span>
+          <div class="cdp-wrap" id="cdpTo">
+            <button type="button" class="cdp-btn" onclick="cdpToggle('cdpTo')">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              <span class="cdp-val" id="cdpToVal">До</span>
+            </button>
+            <div class="cdp-drop" id="cdpToDrop"></div>
+            <input type="hidden" id="filterDateTo">
+          </div>
+        </div>
+      </div>
+      <div class="count-text" id="countText">Загрузка...</div>
+    </div>
+
+    <div class="btn-row">
+            <a href="/auth/discord_login.php" class="action-btn red" style="text-decoration:none">Войти и подать заявку</a>
+            <button class="action-btn" onclick="toggleHomeStats()">Статистика по серверам</button>
+    </div>
+
+    <div class="card" id="homeStats" style="display:none;margin-bottom:20px">
+      <div class="card-title">Статистика по серверам</div>
+      <div id="homeStatsContent"></div>
+    </div>
+
+    <div class="section">
+      <div class="section-title"><span class="top-badge">TOP</span> Топ 3 подозреваемых</div>
+      <div class="table-wrap" id="topTable"><div style="padding:20px;color:var(--text-d);text-align:center">Загрузка...</div></div>
+    </div>
+
+    <div class="section" id="pinnedSection" style="display:none">
+      <div class="section-title">Закреплённые читеры</div>
+      <div class="table-wrap" id="pinnedTable"></div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Все записи</div>
+      <div class="table-wrap" id="mainTable"><div style="padding:20px;color:var(--text-d);text-align:center">Загрузка...</div></div>
+      <div class="pagination" id="pagination"></div>
+    </div>
+  </div>
+
+  
+  <div class="page" id="page-profile">
+    <button class="back-btn" onclick="navigate('home')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><polyline points="12 5 5 12 12 19"/></svg> Назад к списку</button>
+    <div id="profileContent"></div>
+  </div>
+
+  
+  <div class="page" id="page-cabinet">
+    <button class="back-btn" onclick="navigate('home')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><polyline points="12 5 5 12 12 19"/></svg> На главную</button>
+    <div class="search-title" style="margin-bottom:20px">Личный кабинет</div>
+    <div id="cabinetContent"><div style="color:var(--text-d);text-align:center;padding:40px">Загрузка...</div></div>
+  </div>
+
+  
+  <div class="page" id="page-user-profile">
+    <button class="back-btn" id="userProfileBackBtn" onclick="userProfileGoBack()"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><polyline points="12 5 5 12 12 19"/></svg> Назад</button>
+    <div id="userProfileContent"><div style="color:var(--text-d);text-align:center;padding:40px">Загрузка...</div></div>
+  </div>
+
+  
+  <div class="page" id="page-form">
+    <button class="back-btn" onclick="navigate('home')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><polyline points="12 5 5 12 12 19"/></svg> Назад</button>
+    <div class="form-wrap">
+      <div class="search-title" style="margin-bottom:12px">Добавить подозреваемого</div>
+      <div class="card decrypt-card" style="border-color:rgba(220,0,0,.2);margin-bottom:18px"><div class="faq-q"><span id="decryptTitle" data-decrypt="Важно перед подачей заявки"></span></div><div class="faq-a"><span id="decryptBody" data-decrypt="На сайте добавляются записи о подозрительных игроках или игроках, которые откровенно играют с читами. Заявки, добавленные с целью показать личный архив или без реальных доказательств, будут отклонены."></span></div></div>
+            <div class="auth-wall">
+        <div class="auth-wall-icon"></div>
+        <div class="auth-wall-title">Требуется авторизация</div>
+        <div class="auth-wall-sub">Анонимные заявки не принимаются.</div>
+        <a href="/auth/discord_login.php" class="discord-btn" style="display:inline-flex;margin:0 auto">
+          <svg width="18" height="14" viewBox="0 0 71 55" fill="#fff"><path d="M60.1 4.9A58.5 58.5 0 0 0 45.7.5a.22.22 0 0 0-.23.1 40.8 40.8 0 0 0-1.8 3.7 54 54 0 0 0-16.2 0A37.6 37.6 0 0 0 25.6.6a.23.23 0 0 0-.23-.1A58.4 58.4 0 0 0 11 4.9a.2.2 0 0 0-.1.08C1.6 18.7-1 32.2.3 45.5a.24.24 0 0 0 .09.17 58.8 58.8 0 0 0 17.7 8.9.23.23 0 0 0 .25-.08 42 42 0 0 0 3.6-5.9.23.23 0 0 0-.12-.32 38.7 38.7 0 0 1-5.5-2.6.23.23 0 0 1-.02-.38l1.1-.86a.22.22 0 0 1 .23-.03c11.6 5.3 24.1 5.3 35.5 0a.22.22 0 0 1 .23.03l1.1.86a.23.23 0 0 1-.02.38 36.4 36.4 0 0 1-5.5 2.6.23.23 0 0 0-.13.32 47.1 47.1 0 0 0 3.6 5.9.22.22 0 0 0 .25.08A58.6 58.6 0 0 0 70.6 45.7a.23.23 0 0 0 .09-.17C73.2 30.1 69 16.7 60.2 5a.18.18 0 0 0-.1-.08zM23.7 37.3c-3.5 0-6.4-3.2-6.4-7.2s2.8-7.2 6.4-7.2c3.6 0 6.5 3.2 6.4 7.2 0 3.9-2.8 7.2-6.4 7.2zm23.7 0c-3.5 0-6.4-3.2-6.4-7.2s2.8-7.2 6.4-7.2c3.6 0 6.5 3.2 6.4 7.2 0 3.9-2.8 7.2-6.4 7.2z"/></svg>
+          Войти через Discord
+        </a>
+      </div>
+          </div>
+  </div>
+
+  
+  <div class="page" id="page-stats">
+    <div class="search-title" style="margin-bottom:6px">Статистика</div>
+    <div class="search-sub" style="margin-bottom:18px">База данных подозреваемых ARCHIVEMALRP</div>
+    <div id="statsSummary"></div>
+    <div class="globe-section">
+      <div class="globe-header">
+        <div class="globe-title">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          Глобус серверов
+        </div>
+        <div class="globe-legend">
+          <span class="globe-leg-item"><span class="globe-leg-dot" style="background:#1a4a1a"></span>мало</span>
+          <span class="globe-leg-item"><span class="globe-leg-dot" style="background:#8b4000"></span>средне</span>
+          <span class="globe-leg-item"><span class="globe-leg-dot" style="background:#dc0000"></span>много</span>
+        </div>
+      </div>
+      <div class="globe-canvas-wrap" id="globeWrap">
+        <canvas id="globeCanvas"></canvas>
+        <div class="globe-tooltip" id="globeTooltip"></div>
+      </div>
+    </div>
+    <div id="statsContent"></div>
+  </div>
+
+  
+  <div class="page" id="page-scammers">
+    <div class="search-title" style="margin-bottom:6px">Поиск скаммера</div>
+    <div style="color:var(--text-d);font-size:13px;margin-bottom:20px">База данных скаммеров ARCHIVEMALRP</div>
+    <div class="card" style="margin-bottom:18px">
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <input type="text" id="scammerSearchInput" placeholder="Введите ник или Discord..." style="flex:1;min-width:200px;background:var(--bg-3);border:1px solid var(--border);border-radius:8px;padding:10px 14px;color:var(--text);font-size:14px;outline:none">
+        <button onclick="searchScammers()" style="background:var(--accent);color:#fff;border:none;border-radius:8px;padding:10px 22px;font-size:14px;font-weight:700;cursor:pointer">Найти</button>
+      </div>
+    </div>
+    <div class="card" style="margin-bottom:18px">
+      <div class="card-title" style="margin-bottom:14px">ТОП 3 скаммеров</div>
+      <div id="topScammers" style="color:var(--text-d);text-align:center;padding:20px">Загрузка...</div>
+    </div>
+    <div class="card">
+      <div class="card-title" style="margin-bottom:14px">Все записи</div>
+      <div id="allScammers" style="color:var(--text-d);text-align:center;padding:20px">Загрузка...</div>
+    </div>
+  </div>
+
+  
+  <div class="page" id="page-servers">
+    <div class="search-title" style="margin-bottom:6px">Серверы Малиновки</div>
+    <div style="color:var(--text-d);font-size:13px;margin-bottom:20px">Данные обновляются каждые 30 секунд с <a href="https://malinovka.live" target="_blank" style="color:var(--accent);text-decoration:none">malinovka.live</a></div>
+    <div id="serversGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-bottom:24px">
+      <div class="card" style="text-align:center;padding:30px;grid-column:1/-1;color:var(--text-d)">Загрузка данных...</div>
+    </div>
+    <div class="card" style="margin-bottom:0">
+      <div class="card-title" style="margin-bottom:14px">Общая статистика серверов</div>
+      <div id="serversTotalStats" style="display:flex;gap:20px;flex-wrap:wrap">
+        <div style="color:var(--text-d);font-size:13px">Загрузка...</div>
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="page" id="page-members">
+    <div class="search-title" style="margin-bottom:6px">Участники</div>
+    <div class="search-sub" style="margin-bottom:18px">Зарегистрированные пользователи ARCHIVEMALRP</div>
+    <div class="members-toolbar">
+      <input class="form-input members-search" id="membersSearch" placeholder="Поиск по нику..." oninput="membersDebounce()">
+      <div class="custom-select filter-cs" id="csMembersRole" style="min-width:130px">
+        <button type="button" class="custom-select-btn filter-cs-btn" onclick="toggleFilterCS('csMembersRole')" id="csMembersRoleBtn">
+          <span class="cs-val" id="csMembersRoleVal">Все роли</span>
+          <svg class="cs-arrow" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="custom-select-drop" id="csMembersRoleDrop">
+          <div id="csMembersRoleOptions"></div>
+        </div>
+      </div>
+      <input type="hidden" id="membersRole">
+      <div class="custom-select filter-cs" id="csMembersSort" style="min-width:150px">
+        <button type="button" class="custom-select-btn filter-cs-btn" onclick="toggleFilterCS('csMembersSort')" id="csMembersSortBtn">
+          <span class="cs-val" id="csMembersSortVal">По умолчанию</span>
+          <svg class="cs-arrow" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="custom-select-drop" id="csMembersSortDrop">
+          <div id="csMembersSortOptions"></div>
+        </div>
+      </div>
+      <input type="hidden" id="membersSort">
+    </div>
+    <div id="membersTable">Загрузка...</div>
+    <div id="membersPager" class="pager-row"></div>
+  </div>
+
+    <div class="page" id="page-help">
+    <div class="search-title" style="margin-bottom:14px">Помощь</div>
+    <div class="card" style="border-color:rgba(220,0,0,.2)"><div class="faq-q">⚠️ Важно перед подачей заявки</div><div class="faq-a">На сайте добавляются записи о <b>подозрительных игроках</b> или игроках, которые <b>откровенно играют с читами</b>. Заявки, добавленные с целью показать личный архив или без реальных доказательств, будут <b>отклонены</b>.</div></div>
+    <div class="card"><div class="faq-q">Как добавить подозреваемого?</div><div class="faq-a">Войдите через Discord и нажмите «Добавить подозреваемого». Анонимные заявки не принимаются.</div></div>
+    <div class="card"><div class="faq-q">Как работает голосование?</div><div class="faq-a">На странице читера есть кнопки «Верю» / «Не верю». Один голос на пользователя.</div></div>
+    <div class="card"><div class="faq-q">Что означают статусы?</div><div class="faq-a"><b>Ожидает</b> — новая заявка. <b>На проверке</b> — проверяется. <b>Подтверждён</b> — информация верна. <b>Фейк</b> — жалоба отклонена.</div></div>
+    <div class="card"><div class="faq-q">Как работают просмотры?</div><div class="faq-a">Просмотры уникальные — повторное открытие не увеличивает счётчик.</div></div>
+  </div>
+
+  
+
+</div>
+
+<footer class="footer">
+  <span class="accent">ARCHIVE<span style="color:var(--accent)">MALRP</span></span> © 2026 — Все данные предоставлены пользователями
+</footer>
+
+<script>
+window.CSRF    = "ae62b7428ca88644928cdd56572e25ea61675b129aec2bb85154cad7938089e9";
+window.BASE    = '';
+window.IS_LOG  = false;
+window.MY_ROLE = "";
+window.MY_USER = null;
+
+// Загружаем данные авторизованного пользователя
+fetch('/api/me.php')
+  .then(r => r.json())
+  .then(data => {
+    if (data.logged_in) {
+      window.MY_ROLE = data.user.role;
+      window.MY_USER = data.user;
+      // Меняем кнопку "Войти через Discord" на аватар + ник
+      const btns = document.querySelectorAll('.discord-btn-full, .discord-btn');
+      btns.forEach(btn => {
+        if (btn.href && btn.href.includes('discord_login')) {
+          btn.outerHTML = `<div class="discord-btn discord-btn-full" style="cursor:default;gap:8px">
+            <img src="${data.user.avatar}" style="width:24px;height:24px;border-radius:50%">
+            <span>${data.user.username}</span>
+            ${data.user.role === 'admin' ? '<span style="color:#ff4444;font-size:10px;font-weight:700">ADMIN</span>' : ''}
+            <a href="/auth/logout.php" style="color:#aaa;font-size:11px;margin-left:4px">Выйти</a>
+          </div>`;
+        }
+      });
+    }
+  })
+  .catch(() => {});
+</script>
+<script src="js/app3627.js?v=1773747697"></script>
+<script src="js/cabinet4665.js?v=1773088506"></script>
+<script>
+
+const _origNavigate = navigate;
+navigate = function(page) {
+  _origNavigate(page);
+  if (page === 'cabinet') loadCabinet();
+};
+</script>
+
+
+
+<!-- LIGHTBOX -->
+<div id="lightboxOverlay" onclick="closeLightbox()" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.92);align-items:center;justify-content:center;cursor:zoom-out;animation:fadeIn .15s ease">
+  <button onclick="closeLightbox()" style="position:absolute;top:16px;right:20px;background:none;border:none;color:#fff;font-size:28px;cursor:pointer;line-height:1;opacity:.7;transition:opacity .15s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.7">✕</button>
+  <img id="lightboxImg" src="#" alt="" onclick="event.stopPropagation()" style="max-width:92vw;max-height:88vh;border-radius:8px;box-shadow:0 8px 60px rgba(0,0,0,.8);cursor:default;object-fit:contain">
+</div>
+
+<script src="js/light-raysaae7.js?v=1773656396"></script>
+
+
+<div id="pagePreloader" style="position:fixed;inset:0;background:#000;z-index:9999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;transition:opacity .4s ease">
+  <div style="font-size:13px;font-weight:800;letter-spacing:2px;color:#fff">ARCHIVE<span style="color:#e00">5RP</span></div>
+  <div style="width:36px;height:36px;border:2px solid #1a1a1a;border-top-color:#e00;border-radius:50%;animation:preloaderSpin .7s linear infinite"></div>
+</div>
+<style>
+@keyframes preloaderSpin { to { transform: rotate(360deg); } }
+/* ── Custom Date Picker ── */
+.cdp-wrap { position: relative; }
+.cdp-btn {
+  display: flex; align-items: center; gap: 6px;
+  background: var(--bg-input); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 0 10px; height: 34px;
+  font-size: 11.5px; color: var(--text-m); font-family: var(--font);
+  cursor: pointer; transition: border-color .15s, color .15s; white-space: nowrap;
+}
+.cdp-btn:hover { border-color: rgba(220,0,0,.3); color: var(--text-w); }
+.cdp-btn.active { border-color: var(--accent); color: var(--text-w); }
+.cdp-val { font-size: 11.5px; }
+.cdp-drop {
+  display: none; position: absolute; top: calc(100% + 6px); left: 0;
+  background: #0d0d0d; border: 1px solid var(--border);
+  border-radius: var(--radius-lg); z-index: 300; min-width: 240px;
+  box-shadow: 0 12px 40px rgba(0,0,0,.8);
+  animation: dropIn .15s ease;
+}
+.cdp-drop.open { display: block; }
+.cdp-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 12px 8px; border-bottom: 1px solid var(--border);
+}
+.cdp-head-label {
+  font-size: 12px; font-weight: 700; color: var(--text-w);
+  cursor: pointer; padding: 2px 6px; border-radius: 4px;
+  transition: background .1s;
+}
+.cdp-head-label:hover { background: rgba(255,255,255,.06); }
+.cdp-nav {
+  display: flex; gap: 4px;
+}
+.cdp-nav button {
+  background: none; border: 1px solid var(--border); border-radius: 5px;
+  color: var(--text-d); cursor: pointer; width: 26px; height: 26px;
+  display: flex; align-items: center; justify-content: center;
+  transition: border-color .1s, color .1s;
+}
+.cdp-nav button:hover { border-color: var(--accent); color: var(--text-w); }
+.cdp-grid {
+  display: grid; grid-template-columns: repeat(7, 1fr);
+  gap: 2px; padding: 8px 10px;
+}
+.cdp-dow {
+  font-size: 9px; font-weight: 700; color: var(--text-d);
+  text-align: center; padding: 3px 0;
+  font-family: var(--mono); text-transform: uppercase;
+}
+.cdp-day {
+  font-size: 11px; text-align: center; padding: 5px 2px;
+  border-radius: 5px; cursor: pointer; color: var(--text-m);
+  transition: background .1s, color .1s; border: 1px solid transparent;
+}
+.cdp-day:hover { background: rgba(255,255,255,.06); color: var(--text-w); }
+.cdp-day.today { border-color: rgba(220,0,0,.3); color: var(--text-w); }
+.cdp-day.selected { background: var(--accent); color: #fff; border-color: var(--accent); font-weight: 700; }
+.cdp-day.other-month { color: #333; }
+.cdp-day.other-month:hover { color: var(--text-d); }
+.cdp-footer {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 12px; border-top: 1px solid var(--border);
+}
+.cdp-clear {
+  font-size: 11px; color: var(--text-d); cursor: pointer;
+  background: none; border: none; font-family: var(--font);
+  transition: color .1s;
+}
+.cdp-clear:hover { color: var(--red); }
+.cdp-today-btn {
+  font-size: 11px; color: var(--accent); cursor: pointer;
+  background: none; border: none; font-family: var(--font);
+  transition: color .1s;
+}
+.cdp-today-btn:hover { color: var(--text-w); }
+
+</style>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var pl = document.getElementById('pagePreloader');
+  if (!pl) return;
+  pl.style.opacity = '0';
+  setTimeout(function() { pl.style.display = 'none'; }, 450);
+});
+
+// ── Custom Date Picker ──
+const CDP = {
+  state: {},
+  months: ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'],
+  dows: ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'],
+  map: { cdpFrom: 'filterDateFrom', cdpTo: 'filterDateTo' },
+  labelMap: { cdpFrom: 'cdpFromVal', cdpTo: 'cdpToVal' },
+};
+
+function cdpToggle(id) {
+  const drop = document.getElementById(id + 'Drop');
+  const btn  = document.querySelector('#' + id + ' .cdp-btn');
+  const isOpen = drop.classList.contains('open');
+  // Close all
+  document.querySelectorAll('.cdp-drop.open').forEach(d => d.classList.remove('open'));
+  document.querySelectorAll('.cdp-btn.active').forEach(b => b.classList.remove('active'));
+  if (!isOpen) {
+    if (!CDP.state[id]) {
+      const now = new Date();
+      CDP.state[id] = { year: now.getFullYear(), month: now.getMonth() };
+    }
+    cdpRender(id);
+    drop.classList.add('open');
+    btn.classList.add('active');
+  }
+}
+
+function cdpRender(id) {
+  const { year, month } = CDP.state[id];
+  const inputId = CDP.map[id];
+  const selected = document.getElementById(inputId)?.value || '';
+  const today = new Date();
+  const firstDay = new Date(year, month, 1);
+  const lastDay  = new Date(year, month + 1, 0);
+  // Mon-based offset
+  let startDow = firstDay.getDay(); // 0=Sun
+  startDow = startDow === 0 ? 6 : startDow - 1;
+
+  let grid = CDP.dows.map(d => `<div class="cdp-dow">${d}</div>`).join('');
+  // Empty cells
+  for (let i = 0; i < startDow; i++) grid += '<div></div>';
+  for (let d = 1; d <= lastDay.getDate(); d++) {
+    const dateStr = `${year}-${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const isToday = today.getFullYear()===year && today.getMonth()===month && today.getDate()===d;
+    const isSel   = selected === dateStr;
+    grid += `<div class="cdp-day${isToday?' today':''}${isSel?' selected':''}" onclick="cdpSelect('${id}','${dateStr}','${d} ${CDP.months[month].slice(0,3)} ${year}')">${d}</div>`;
+  }
+
+  document.getElementById(id + 'Drop').innerHTML = `
+    <div class="cdp-head">
+      <span class="cdp-head-label">${CDP.months[month]} ${year}</span>
+      <div class="cdp-nav">
+        <button onclick="cdpMove('${id}',-1)"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></button>
+        <button onclick="cdpMove('${id}',1)"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></button>
+      </div>
+    </div>
+    <div class="cdp-grid">${grid}</div>
+    <div class="cdp-footer">
+      <button class="cdp-clear" onclick="cdpClear('${id}')">Очистить</button>
+      <button class="cdp-today-btn" onclick="cdpSelectToday('${id}')">Сегодня</button>
+    </div>`;
+}
+
+function cdpMove(id, dir) {
+  let { year, month } = CDP.state[id];
+  month += dir;
+  if (month > 11) { month = 0; year++; }
+  if (month < 0)  { month = 11; year--; }
+  CDP.state[id] = { year, month };
+  cdpRender(id);
+}
+
+function cdpSelect(id, dateStr, label) {
+  document.getElementById(CDP.map[id]).value = dateStr;
+  document.getElementById(CDP.labelMap[id]).textContent = label;
+  document.getElementById(id + 'Drop').classList.remove('open');
+  document.querySelector('#' + id + ' .cdp-btn').classList.remove('active');
+  doSearch();
+}
+
+function cdpSelectToday(id) {
+  const t = new Date();
+  const d = String(t.getDate()).padStart(2,'0');
+  const m = String(t.getMonth()+1).padStart(2,'0');
+  const label = `${t.getDate()} ${CDP.months[t.getMonth()].slice(0,3)} ${t.getFullYear()}`;
+  cdpSelect(id, `${t.getFullYear()}-${m}-${d}`, label);
+}
+
+function cdpClear(id) {
+  document.getElementById(CDP.map[id]).value = '';
+  document.getElementById(CDP.labelMap[id]).textContent = id === 'cdpFrom' ? 'От' : 'До';
+  document.getElementById(id + 'Drop').classList.remove('open');
+  document.querySelector('#' + id + ' .cdp-btn').classList.remove('active');
+  doSearch();
+}
+
+// Close on outside click
+document.addEventListener('click', e => {
+  if (!e.target.closest('.cdp-wrap')) {
+    document.querySelectorAll('.cdp-drop.open').forEach(d => d.classList.remove('open'));
+    document.querySelectorAll('.cdp-btn.active').forEach(b => b.classList.remove('active'));
+  }
+});
+
+</script>
+
+<script src="js/target-cursor3627.js?v=1773747697"></script>
+</body>
+
+<!-- Mirrored from archivemalrp.ru/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 18 Mar 2026 14:52:30 GMT -->
+</html>
