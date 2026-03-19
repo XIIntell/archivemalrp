@@ -306,6 +306,8 @@ app.get('/api/public_profile.php', async (req, res) => {
     const [confirmed] = await db.execute('SELECT COUNT(*) as c FROM cheaters WHERE submitted_by = ? AND status="confirmed"', [user.id]);
     const [fake]      = await db.execute('SELECT COUNT(*) as c FROM cheaters WHERE submitted_by = ? AND status="rejected"', [user.id]);
 
+    const [pending] = await db.execute('SELECT COUNT(*) as c FROM cheaters WHERE submitted_by = ? AND status="pending"', [user.id]);
+
     res.json({
       ok: true,
       user: {
@@ -318,6 +320,7 @@ app.get('/api/public_profile.php', async (req, res) => {
         confirmed: confirmed[0].c,
         fake: fake[0].c,
         checking: 0,
+        pending: pending[0].c,
         votes_given: 0,
         comments_given: 0,
       }
@@ -354,6 +357,11 @@ app.post('/api/admin_set_role.php', async (req, res) => {
   } catch(e) {
     res.json({ ok: false, error: e.message });
   }
+});
+
+// Достижения пользователя
+app.get('/api/achievements.php', async (req, res) => {
+  res.json({ achievements: [] });
 });
 
 // Онлайн счётчик
