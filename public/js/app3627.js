@@ -1101,8 +1101,7 @@ async function loadServers(){
   let data = null;
   try {
     const MAX_PLAYERS = 500; // макс игроков на сервер
-    const proxyUrl = 'https://api.allorigins.win/get?url=' + encodeURIComponent('https://malinovka.live/');
-    const resp = await fetch(proxyUrl);
+    const resp = await fetch('/api/malinovka');
     const json = await resp.json();
     const html = json.contents;
     const parser = new DOMParser();
