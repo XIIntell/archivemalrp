@@ -1690,12 +1690,12 @@ async function loadMembers() {
   const roleLabel = {admin:'ADMIN', moderator:'MOD', vip:'VIP', user:'USER'};
   const roleClass = {admin:'badge-admin', moderator:'badge-mod', vip:'badge-vip', user:'badge-user'};
   const nickClass  = {admin:'admin-username', moderator:'mod-username', vip:'vip-username'};
-  if (!data.rows.length) {
+  if (!data.members || !data.members.length) {
     el.innerHTML = '<div style="color:var(--text-d);text-align:center;padding:30px;font-size:12px">Никого не найдено</div>';
     $('membersPager').innerHTML = ''; return;
   }
   let h = '<div class="members-grid">';
-  data.rows.forEach(u => {
+  data.members.forEach(u => {
     const nc = nickClass[u.role] || '';
     const nickHtml = nc
       ? `<div class="${nc} members-nick"><span>${esc(u.username)}</span></div>`
