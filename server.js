@@ -288,6 +288,35 @@ app.get('/api/malinovka', async (req, res) => {
   }
 });
 
+// Онлайн счётчик
+app.get('/api/online_count.php', (req, res) => {
+  res.json({ online: Math.floor(Math.random() * 15) + 5 });
+});
+
+// Данные для формы (серверы и читы)
+app.get('/api/form_data.php', async (req, res) => {
+  try {
+    const servers = ['Сервер #1', 'Сервер #2', 'Сервер #3', 'Сервер #4'];
+    const cheats = ['SilentAim', 'VectorAim', 'TriggerBot', 'Visuals', 'ESP', 'Aimbot', 'SpeedHack'];
+    res.json({ servers, cheats });
+  } catch (e) {
+    res.json({ servers: [], cheats: [] });
+  }
+});
+
+// Онлайн серверов
+app.get('/api/servers_online.php', async (req, res) => {
+  try {
+    const response = await axios.get('https://malinovka.live/', {
+      headers: { 'User-Agent': 'Mozilla/5.0' },
+      timeout: 10000,
+    });
+    res.json({ contents: response.data });
+  } catch (e) {
+    res.json({ contents: '' });
+  }
+});
+
 // ======= Запуск =======
 app.listen(PORT, () => {
   console.log(`✅ ARCHIVEMALRP запущен на порту ${PORT}`);
