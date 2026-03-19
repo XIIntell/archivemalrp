@@ -288,6 +288,38 @@ app.get('/api/malinovka', async (req, res) => {
   }
 });
 
+// Публичный профиль
+app.get('/api/public_profile.php', async (req, res) => {
+  try {
+    const { id, discord_id } = req.query;
+    let user = null;
+    if (id) {
+      const [rows] = await db.execute('SELECT * FROM users WHERE id = ?', [id]);
+      user = rows[0] || null;
+    } else if (discord_id) {
+      const [rows] = await db.execute('SELECT * FROM users WHERE discord_id = ?', [discord_id]);
+      user = rows[0] || null;
+    }
+    if (!user) return res.json({ ok: false, error: 'Пользователь не найден' });
+
+    const [submitted] = await db.execute('SELECT COUNT(*) as c FROM cheaters WHERE submitted_by = ?', [user.id]);
+    const [confirmed] = await db.execute('SELECT COUNT(*) as c FROM cheaters WHERE submitted_by = ? AND status="confirmed"', [user.id]);
+    const [fake]      = await db.execute('SELECT COUNT(*) as c FROM cheaters WHERE submitted_by = ? AND status="rejected"', [user.id]);
+
+    res.json({
+      ok: true,
+      user: {
+        ...user,
+        submitted: submitted[0].c,
+        confirmed: confirmed[0].c,
+        fake: fake[0].c,
+      }
+    });
+  } catch (e) {
+    res.json({ ok: false, error: e.message });
+  }
+});
+
 // Онлайн счётчик
 app.get('/api/online_count.php', async (req, res) => {
   try {
