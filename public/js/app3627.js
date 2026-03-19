@@ -139,6 +139,7 @@ function navigate(page) {
   if (page === 'home')    loadHome();
   if (page === 'stats')   loadStats();
   if (page === 'scammers') loadScammers();
+  if (page === 'admin') loadAdmin();
   if (page === 'servers') loadServers();
   if (page === 'form')    initForm();
   if (page === 'cabinet') loadCabinet();
@@ -156,6 +157,7 @@ function _activatePage(page) {
   if (page === 'home')    loadHome();
   if (page === 'stats')   loadStats();
   if (page === 'scammers') loadScammers();
+  if (page === 'admin') loadAdmin();
   if (page === 'servers') loadServers();
   if (page === 'form')    initForm();
   if (page === 'cabinet') loadCabinet();
@@ -970,7 +972,7 @@ async function submitForm(){
   showAlert('Заявка успешно отправлена на модерацию','success');navigate('home');
 }
 async function loadStats(){
-  const [data, globeData] = await Promise.all([
+  const [data, malinovkaData] = await Promise.all([
     api('/api/stats.php'),
     api('/api/malinovka')
   ]);
@@ -979,12 +981,12 @@ async function loadStats(){
   // Summary bar
   const summaryHtml=`
 <div class="srv-summary srv-summary-6">
-  <div class="srv-sum-item"><div class="srv-sum-val">${(data.total||0).toLocaleString('ru')}</div><div class="srv-sum-lbl">Всего записей</div></div>
-  <div class="srv-sum-item"><div class="srv-sum-val" style="color:var(--green)">${(data.confirmed||0).toLocaleString('ru')}</div><div class="srv-sum-lbl">Подтверждено</div></div>
-  <div class="srv-sum-item"><div class="srv-sum-val" style="color:var(--yellow)">${(data.checking||0).toLocaleString('ru')}</div><div class="srv-sum-lbl">На проверке</div></div>
+  <div class="srv-sum-item"><div class="srv-sum-val">${(data.cheaters||0).toLocaleString('ru')}</div><div class="srv-sum-lbl">Всего записей</div></div>
+  <div class="srv-sum-item"><div class="srv-sum-val" style="color:var(--green)">${(data.cheaters||0).toLocaleString('ru')}</div><div class="srv-sum-lbl">Подтверждено</div></div>
+  <div class="srv-sum-item"><div class="srv-sum-val" style="color:var(--yellow)">0</div><div class="srv-sum-lbl">На проверке</div></div>
   <div class="srv-sum-item"><div class="srv-sum-val" style="color:var(--blue)">${(data.pending||0).toLocaleString('ru')}</div><div class="srv-sum-lbl">Ожидают</div></div>
-  <div class="srv-sum-item"><div class="srv-sum-val" style="color:var(--accent)">${(data.fake||0).toLocaleString('ru')}</div><div class="srv-sum-lbl">Фейков</div></div>
-  <div class="srv-sum-item"><div class="srv-sum-val">${(data.views||0).toLocaleString('ru')}</div><div class="srv-sum-lbl">Просмотров</div></div>
+  <div class="srv-sum-item"><div class="srv-sum-val" style="color:var(--accent)">${(data.scammers||0).toLocaleString('ru')}</div><div class="srv-sum-lbl">Скаммеров</div></div>
+  <div class="srv-sum-item"><div class="srv-sum-val">${(data.users||0).toLocaleString('ru')}</div><div class="srv-sum-lbl">Участников</div></div>
 </div>`;
 
   // Server cards
@@ -1038,14 +1040,60 @@ async function loadStats(){
   const maxC = Math.max(...cheats.map(ch=>ch.count),1);
   const cheatsHtml = cheats.length ? buildCheatsCards(cheats) : '';
 
-  // Summary goes into its own container ABOVE the globe
+  // Parse malinovka servers from proxy
+  let malinovkaServers = [];
+  if (malinovkaData && malinovkaData.contents) {
+    try {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(malinovkaData.contents, 'text/html');
+      const allText = doc.body.innerText || doc.body.textContent;
+      const lines = allText.split('\n').map(s=>s.trim()).filter(Boolean);
+      for(let i=0;i<lines.length;i++){
+        const m = lines[i].match(/Сервер #(\d+)/i);
+        if(m){
+          const num = parseInt(m[1]);
+          if(num < 1 || num > 4) continue;
+          let online = 0, status = 'offline';
+          for(let j=i+1;j<Math.min(i+5,lines.length);j++){
+            const om = lines[j].match(/(\d+)/);
+            if(om && parseInt(om[1]) > 0 && parseInt(om[1]) < 600) online = parseInt(om[1]);
+            if(lines[j].toLowerCase().includes('работает') || lines[j].toLowerCase().includes('operational')) status = 'online';
+          }
+          malinovkaServers.push({num, name:'Сервер #'+num, online, max:500, status});
+        }
+      }
+      malinovkaServers.sort((a,b)=>a.num-b.num);
+    } catch(e){}
+  }
+  if(!malinovkaServers.length) {
+    malinovkaServers = [1,2,3,4].map(n=>({num:n, name:'Сервер #'+n, online:0, max:500, status:'unknown'}));
+  }
+
+  const serverCardsNew = '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-bottom:24px">' +
+    malinovkaServers.map(sv => {
+      const pct = sv.max > 0 ? Math.round(sv.online/sv.max*100) : 0;
+      const barColor = pct>70?'var(--accent)':pct>40?'rgba(220,100,0,.8)':'rgba(220,0,0,.4)';
+      const statusColor = sv.status==='online'?'var(--green)':sv.status==='offline'?'var(--accent)':'var(--text-d)';
+      const statusText = sv.status==='online'?'Онлайн':sv.status==='offline'?'Офлайн':'Нет данных';
+      return '<div class="card" style="padding:18px;border:1px solid var(--border)">'
+        + '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">'
+        + '<div style="font-weight:700;font-size:15px;color:var(--text)">'+sv.name+'</div>'
+        + '<span style="font-size:11px;font-weight:700;color:'+statusColor+'">'+statusText+'</span>'
+        + '</div>'
+        + '<div style="display:flex;gap:20px;margin-bottom:12px">'
+        + '<div style="text-align:center"><div style="font-size:22px;font-weight:800;color:var(--text)">'+sv.online+'</div><div style="font-size:10px;color:var(--text-d)">Онлайн</div></div>'
+        + '<div style="text-align:center"><div style="font-size:22px;font-weight:800;color:var(--text-d)">'+sv.max+'</div><div style="font-size:10px;color:var(--text-d)">Макс.</div></div>'
+        + '<div style="text-align:center"><div style="font-size:22px;font-weight:800;color:var(--accent)">'+pct+'%</div><div style="font-size:10px;color:var(--text-d)">Нагрузка</div></div>'
+        + '</div>'
+        + '<div style="background:rgba(255,255,255,.07);border-radius:99px;height:4px;overflow:hidden">'
+        + '<div style="width:'+pct+'%;height:100%;background:'+barColor+';border-radius:99px;transition:width .5s"></div>'
+        + '</div></div>';
+    }).join('') + '</div>';
+
   const summaryEl = $('statsSummary');
   if (summaryEl) summaryEl.innerHTML = summaryHtml;
-  // Server cards + cheats go below the globe
   const el=$('statsContent');
-  if(el) el.innerHTML = serverCardsHtml + cheatsHtml;
-  // Init globe
-  if (globeData?.servers?.length) initServerGlobe(globeData.servers);
+  if(el) el.innerHTML = '<div style="font-weight:700;font-size:13px;color:var(--text-d);margin-bottom:10px;letter-spacing:.5px">СЕРВЕРЫ МАЛИНОВКИ</div>' + serverCardsNew;
 }
 function buildCheatsCards(cheats){
   const maxC = Math.max(...cheats.map(ch=>ch.count), 1);
@@ -2279,4 +2327,119 @@ async function searchScammers() {
   } catch(e) {
     allEl.innerHTML = '<div style="color:var(--text-d);text-align:center;padding:20px">Ошибка поиска</div>';
   }
+}
+
+// ===== АДМИН ПАНЕЛЬ =====
+async function loadAdmin() {
+  if (window.MY_ROLE !== 'admin' && window.MY_ROLE !== 'moderator') {
+    navigate('home'); return;
+  }
+
+  // Load stats
+  const stats = await api('/api/stats.php');
+  const adminStats = document.getElementById('adminStats');
+  if (adminStats && stats) {
+    adminStats.innerHTML = [
+      { label: 'Читеров', val: stats.cheaters, color: 'var(--accent)' },
+      { label: 'Скаммеров', val: stats.scammers, color: 'var(--accent)' },
+      { label: 'На модерации', val: stats.pending, color: 'var(--yellow)' },
+      { label: 'Пользователей', val: stats.users, color: 'var(--green)' },
+    ].map(s => `<div class="card" style="text-align:center;padding:16px">
+      <div style="font-size:28px;font-weight:800;color:${s.color}">${s.val}</div>
+      <div style="font-size:11px;color:var(--text-d);margin-top:4px">${s.label}</div>
+    </div>`).join('');
+  }
+
+  // Load pending cheaters
+  loadAdminPending('cheaters');
+  loadAdminPending('scammers');
+  loadAdminUsers();
+}
+
+async function loadAdminPending(type) {
+  const elId = type === 'cheaters' ? 'adminPendingCheaters' : 'adminPendingScammers';
+  const el = document.getElementById(elId);
+  if (!el) return;
+
+  try {
+    const data = await api(`/api/admin_pending.php?type=${type}`);
+    const items = data?.items || [];
+    if (!items.length) {
+      el.innerHTML = '<div style="color:var(--text-d);text-align:center;padding:20px">Нет заявок</div>';
+      return;
+    }
+    el.innerHTML = '<table style="width:100%;border-collapse:collapse;font-size:13px">'
+      + '<thead><tr style="color:var(--text-d);border-bottom:1px solid var(--border)">'
+      + '<th style="text-align:left;padding:8px">НИК</th>'
+      + '<th style="text-align:left;padding:8px">DISCORD</th>'
+      + '<th style="text-align:left;padding:8px">СЕРВЕР</th>'
+      + '<th style="text-align:left;padding:8px">ДАТА</th>'
+      + '<th style="text-align:left;padding:8px">ДЕЙСТВИЕ</th>'
+      + '</tr></thead><tbody>'
+      + items.map(item => `<tr style="border-bottom:1px solid var(--border)">
+        <td style="padding:8px;color:var(--accent);font-weight:600">${esc(item.nick)}</td>
+        <td style="padding:8px;color:var(--text-d)">${esc(item.discord||'—')}</td>
+        <td style="padding:8px">${esc(item.server||'—')}</td>
+        <td style="padding:8px;color:var(--text-d)">${item.created_at ? new Date(item.created_at).toLocaleDateString('ru') : '—'}</td>
+        <td style="padding:8px;display:flex;gap:6px">
+          <button onclick="adminAction(${item.id},'${type}','confirm')" style="background:var(--green);color:#fff;border:none;border-radius:6px;padding:4px 10px;cursor:pointer;font-size:11px">✓ Принять</button>
+          <button onclick="adminAction(${item.id},'${type}','reject')" style="background:var(--accent);color:#fff;border:none;border-radius:6px;padding:4px 10px;cursor:pointer;font-size:11px">✗ Отклонить</button>
+        </td>
+      </tr>`).join('')
+      + '</tbody></table>';
+  } catch(e) {
+    el.innerHTML = '<div style="color:var(--text-d);text-align:center;padding:20px">Ошибка загрузки</div>';
+  }
+}
+
+async function loadAdminUsers() {
+  const el = document.getElementById('adminUsers');
+  if (!el) return;
+  try {
+    const data = await api('/api/members.php?page=1');
+    const members = data?.members || [];
+    if (!members.length) { el.innerHTML = '<div style="color:var(--text-d);text-align:center;padding:20px">Нет пользователей</div>'; return; }
+    el.innerHTML = '<table style="width:100%;border-collapse:collapse;font-size:13px">'
+      + '<thead><tr style="color:var(--text-d);border-bottom:1px solid var(--border)">'
+      + '<th style="text-align:left;padding:8px">НИК</th>'
+      + '<th style="text-align:left;padding:8px">DISCORD ID</th>'
+      + '<th style="text-align:left;padding:8px">РОЛЬ</th>'
+      + '<th style="text-align:left;padding:8px">ДАТА</th>'
+      + '<th style="text-align:left;padding:8px">ДЕЙСТВИЕ</th>'
+      + '</tr></thead><tbody>'
+      + members.map(u => `<tr style="border-bottom:1px solid var(--border)">
+        <td style="padding:8px;font-weight:600">${esc(u.username)}</td>
+        <td style="padding:8px;color:var(--text-d);font-size:11px">${esc(u.discord_id)}</td>
+        <td style="padding:8px"><span style="font-size:10px;font-weight:700;color:${u.role==='admin'?'var(--accent)':u.role==='moderator'?'var(--yellow)':'var(--text-d)'}">${u.role.toUpperCase()}</span></td>
+        <td style="padding:8px;color:var(--text-d)">${u.created_at ? new Date(u.created_at).toLocaleDateString('ru') : '—'}</td>
+        <td style="padding:8px;display:flex;gap:6px">
+          <button onclick="adminSetRole(${u.id},'moderator')" style="background:var(--yellow);color:#000;border:none;border-radius:6px;padding:4px 8px;cursor:pointer;font-size:10px">Модер</button>
+          <button onclick="adminSetRole(${u.id},'user')" style="background:var(--bg-3);color:var(--text);border:1px solid var(--border);border-radius:6px;padding:4px 8px;cursor:pointer;font-size:10px">Юзер</button>
+        </td>
+      </tr>`).join('')
+      + '</tbody></table>';
+  } catch(e) {
+    el.innerHTML = '<div style="color:var(--text-d);text-align:center;padding:20px">Ошибка загрузки</div>';
+  }
+}
+
+async function adminAction(id, type, action) {
+  if (!confirm(action === 'confirm' ? 'Принять заявку?' : 'Отклонить заявку?')) return;
+  const res = await fetch('/api/moderate.php', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ id, type: type === 'cheaters' ? 'cheater' : 'scammer', action })
+  }).then(r => r.json());
+  if (res.ok) { showAlert('Готово!', 'success'); loadAdmin(); }
+  else showAlert('Ошибка: ' + res.error, 'error');
+}
+
+async function adminSetRole(userId, role) {
+  const res = await fetch('/api/admin_set_role.php', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ userId, role })
+  }).then(r => r.json());
+  if (res.ok) { showAlert('Роль изменена!', 'success'); loadAdminUsers(); }
+  else showAlert('Ошибка', 'error');
 }
