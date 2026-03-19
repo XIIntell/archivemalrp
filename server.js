@@ -262,11 +262,29 @@ app.get('/api/members.php', async (req, res) => {
 
     const whereStr = where.join(' AND ');
     const [[{ total }]] = await db.execute(`SELECT COUNT(*) as total FROM users WHERE ${whereStr}`, params);
-    const [members]     = await db.execute(`SELECT * FROM users WHERE ${whereStr} ORDER BY created_at DESC LIMIT ${limit} OFFSET ${offset}`, params);
+    const [members]     = await db.execute(`SELECT id, discord_id, username, avatar, role, created_at FROM users WHERE ${whereStr} ORDER BY created_at DESC LIMIT ${limit} OFFSET ${offset}`, params);
 
     res.json({ members, total, page: parseInt(page), pages: Math.ceil(total / limit) });
   } catch (e) {
+    console.error('Members error:', e.message);
     res.json({ members: [], total: 0, pages: 0 });
+  }
+});
+
+// Прокси для malinovka.live (обход CORS)
+app.get('/api/malinovka', async (req, res) => {
+  try {
+    const response = await axios.get('https://malinovka.live/', {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+      },
+      timeout: 10000,
+    });
+    res.json({ contents: response.data });
+  } catch (e) {
+    console.error('Malinovka proxy error:', e.message);
+    res.json({ contents: '' });
   }
 });
 
