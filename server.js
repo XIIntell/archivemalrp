@@ -30,6 +30,11 @@ app.use(session({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Главная страница
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
 // ======= Хелперы =======
 const ADMIN_IDS = (process.env.ADMIN_IDS || '').split(',').map(s => s.trim());
 function getRole(discordId) {
