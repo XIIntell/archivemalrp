@@ -972,7 +972,7 @@ async function submitForm(){
 async function loadStats(){
   const [data, globeData] = await Promise.all([
     api('/api/stats.php'),
-    api('/api/servers_online.php')
+    api('/api/malinovka')
   ]);
   if(!data)return;
 
@@ -1700,7 +1700,7 @@ async function loadMembers() {
     const nickHtml = nc
       ? `<div class="${nc} members-nick"><span>${esc(u.username)}</span></div>`
       : `<div class="members-nick-plain">${esc(u.username)}</div>`;
-    const avatar = u.avatar_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(u.username)}&background=1a0000&color=dc0000&size=64&bold=true&format=svg`;
+    const avatar = u.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(u.username)}&background=1a0000&color=dc0000&size=64&bold=true&format=svg`;
     const fallbackAv = `https://ui-avatars.com/api/?name=${encodeURIComponent(u.username)}&background=1a0000&color=dc0000&size=64&bold=true&format=svg`;
     const hasRoleBorder = (u.role === 'admin' || u.role === 'moderator' || u.role === 'vip');
     const roleColorMap = {admin: 'admin', moderator: 'mod', vip: 'vip'};
@@ -1723,7 +1723,7 @@ async function loadMembers() {
             <div class="member-stat"><span class="member-stat-val" style="color:var(--green)">${u.confirmed||0}</span><span class="member-stat-lbl">подтв.</span></div>
             <div class="member-stat"><span class="member-stat-val" style="color:var(--red)">${u.fake||0}</span><span class="member-stat-lbl">фейков</span></div>
           </div>
-          <div class="member-date">${u.registered}</div>
+          <div class="member-date">${u.created_at ? new Date(u.created_at).toLocaleDateString('ru') : '—'}</div>
         </div>
       </div>
     </div>`;
