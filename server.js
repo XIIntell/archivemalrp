@@ -289,8 +289,13 @@ app.get('/api/malinovka', async (req, res) => {
 });
 
 // Онлайн счётчик
-app.get('/api/online_count.php', (req, res) => {
-  res.json({ online: Math.floor(Math.random() * 15) + 5 });
+app.get('/api/online_count.php', async (req, res) => {
+  try {
+    const [[{ count }]] = await db.execute('SELECT COUNT(*) as count FROM users');
+    res.json({ count: parseInt(count) });
+  } catch(e) {
+    res.json({ count: 0 });
+  }
 });
 
 // Данные для формы (серверы и читы)
